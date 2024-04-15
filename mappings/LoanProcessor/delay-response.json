@@ -1,0 +1,16 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/parabank/services_proxy/wiremock/requestLoan"
+      },
+      "response": {
+        "status": 200,
+        "fixedDelayMilliseconds": 10000,
+        "jsonBody":{
+            "responseDate": 1712893246430,
+            "loanProviderName": "Wealth Securities Dynamic Loans (WSDL)",
+            "approved": true,
+            "accountId": 51639
+        }
+    }
+}

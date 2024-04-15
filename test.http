@@ -1,0 +1,34 @@
+GET http://localhost:8585/some/thing/one
+
+###
+
+GET http://localhost:8585/first/mock
+
+###
+
+POST http://localhost:8585/transaction-screening/financial-format
+content-type: application/json
+
+{
+	"financialFormatScreeningRequest": {
+		"requestHeader": {
+			"requestId": "TAFQWERTY",
+			"businessUnit": "SOGETI"
+		},
+		"requestBody": {
+			"CdtrAcct": "NL100SOGETI1111111100"
+		}
+	}
+}
+
+###
+
+GET http://localhost:8585/parabank/services_proxy/wiremock/requestLoan
+
+###
+
+GET http://localhost:8585/parabank/services_proxy/wiremock/interestRate
+
+###
+
+GET http://localhost:8585/__admin/mappings

@@ -1,0 +1,140 @@
+{
+	"mappings": [
+		{
+			"metadata": {
+				"name": "ScreeningAPI /transaction-screening/financial-format with HOLD",
+				"description": "Return HOLD and HIT when specific credit IBAN is in the requestbody"
+			},
+			"priority": 1,
+			"request": {
+				"method": "POST",
+				"urlPathPattern": "/transaction-screening/financial-format",
+				"headers": {
+					"Content-Type": {
+					  "equalTo": "application/json"
+					}
+				  },
+				"bodyPatterns": [
+					{
+						"matches": ".*NL100SOGETI9999999999.*"
+					}
+				]
+			},
+			"response": {
+				"status": 200,
+				"headers": {
+					"Content-Type": "application/json"
+				},
+				"jsonBody": {
+					"financialFormatScreeningResponse": {
+						"requestId": "{{{xPath request.body '/financialFormatScreeningRequest/requestHeader/requestId/text()'}}}",
+						"businessUnit": "{{{xPath request.body '/financialFormatScreeningRequest/requestHeader/businessUnit/text()'}}}",
+						"status": "HOLD",
+						"decision": "HIT",
+						"screeningId": "WireMock_{{randomValue length=10 type='ALPHANUMERIC'}}"
+					}
+				}
+			}
+		
+		},
+		{
+			"metadata": {
+				"name": "ScreeningAPI /transaction-screening/financial-format with ERROR",
+				"description": "Return ERROR and Reject when credit IBAN NL100SOGETI0000000000 is in the requestbody"
+			},
+			"priority": 1,
+			"request": {
+				"method": "POST",
+				"urlPathPattern": "/transaction-screening/financial-format",
+				"headers": {
+					"Content-Type": {
+					  "equalTo": "application/json"
+					}
+				  },
+				"bodyPatterns": [
+					{
+						"matches": ".*NL100SOGETI0000000000.*"
+					}
+				]
+			},
+			"response": {
+				"status": 200,
+				"headers": {
+					"Content-Type": "application/json"
+				},
+				"jsonBody": {
+					"financialFormatScreeningResponse": {
+						"requestId": "{{jsonPath request.body '$.financialFormatScreeningRequest.requestHeader.requestId'}}",
+						"businessUnit": "{{jsonPath request.body '$.financialFormatScreeningRequest.requestHeader.businessUnit'}}",
+						"status": "ERROR",
+						"decision": "REJECT",
+						"screeningId": "WireMock_{{randomValue length=10 type='ALPHANUMERIC'}}"
+					}
+				}
+			}
+	
+		},
+		{
+			"metadata": {
+				"name": "ScreeningAPI /transaction-screening/financial-format with NOP",
+				"description": "Return NOP and PENDING when credit IBAN NL100SOGETI1111111111 is in the request"
+			},
+			"priority": 1,
+			"request": {
+				"method": "POST",
+				"headers": {
+					"Content-Type": {
+					  "equalTo": "application/json"
+					}
+				  },
+				"urlPathPattern": "/transaction-screening/financial-format",
+				"bodyPatterns": [
+					{
+						"matches": ".*NL100SOGETI1111111111.*"
+					}
+				]
+			},
+			"response": {
+				"status": 200,
+				"headers": {
+					"Content-Type": "application/json"
+				},
+				"jsonBody": {
+					"financialFormatScreeningResponse": {
+						"requestId": "{{jsonPath request.body '$.financialFormatScreeningRequest.requestHeader.requestId'}}",
+						"businessUnit": "{{jsonPath request.body '$.financialFormatScreeningRequest.requestHeader.businessUnit'}}",
+						"status": "NOP",
+						"decision": "PENDING",
+						"screeningId": "WireMock_{{randomValue length=10 type='ALPHANUMERIC'}}"
+					}
+				}
+			}
+		},
+		{
+			"metadata": {
+				"name": "ScreeningAPI /transaction-screening/financial-format with OK",
+				"description": "In case above cases do not apply, return with OK."
+			},
+			"priority": 2,
+			"request": {
+				"method": "POST",
+				"urlPathPattern": "/transaction-screening/financial-format"
+			},
+			"response": {
+				"status": 200,
+				"headers": {
+					"Content-Type": "application/json"
+				},
+				"jsonBody": {
+					"financialFormatScreeningResponse": {
+						"requestId": "{{jsonPath request.body '$.financialFormatScreeningRequest.requestHeader.requestId'}}",
+						"businessUnit": "{{jsonPath request.body '$.financialFormatScreeningRequest.requestHeader.businessUnit'}}",
+						"status": "OK",
+						"decision": "NO_HIT",
+						"screeningId": "WireMock_{{randomValue length=10 type='ALPHANUMERIC'}}"
+					}
+				}
+			}
+		}
+	]
+}
