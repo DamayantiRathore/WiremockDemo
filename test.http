@@ -16,7 +16,7 @@ content-type: application/json
 			"businessUnit": "SOGETI"
 		},
 		"requestBody": {
-			"CdtrAcct": "NL100SOGETI1111111100"
+			"CdtrAcct": "NL100SOGETI111111111"
 		}
 	}
 }
